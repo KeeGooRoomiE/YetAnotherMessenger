@@ -4,6 +4,10 @@
         v-model="receiverPseudonym"
         placeholder="Receiver's pseudonym"
     />
+    <input
+        v-model="senderPseudonym"
+        placeholder="Sender's pseudonym"
+    />
     <textarea
         v-model="message"
         placeholder="Type your message (max 500 characters)"
@@ -28,6 +32,7 @@ export default {
   data() {
     return {
       receiverPseudonym: '',
+      senderPseudonym: '',
       message: '',
       file: null,  
       expirationTime: 1,
@@ -46,7 +51,7 @@ export default {
     },
     async sendMessage() {
       const formData = new FormData();
-      formData.append('sender_pseudonym', 'yourPseudonym');
+      formData.append('sender_pseudonym', this.senderPseudonym);
       formData.append('receiver_pseudonym', this.receiverPseudonym);
       formData.append('content', this.message);
       formData.append('expiration_time', this.expirationTime);
