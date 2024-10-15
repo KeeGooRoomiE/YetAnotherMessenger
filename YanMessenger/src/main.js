@@ -1,23 +1,14 @@
+import axios from 'axios';
 import { createApp } from 'vue';
 import App from './App.vue';
-import axios from 'axios';
 
-// Создаем экземпляр Axios
-const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
-    timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+// Настройка базового URL для API
+axios.defaults.baseURL = 'http://127.0.0.1:8000/';  // Убедитесь, что бэкенд работает на этом адресе
 
 // Создаем приложение Vue
 const app = createApp(App);
 
-// Добавляем axios через provide (доступно в любом компоненте через inject)
-app.provide('$axios', axiosInstance);
+// Предоставляем Axios в качестве зависимости для всех компонентов
+app.config.globalProperties.$axios = axios;
 
-// Монтируем приложение
 app.mount('#app');

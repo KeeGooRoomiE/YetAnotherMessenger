@@ -52,6 +52,7 @@ export default {
   methods: {
     // Метод для загрузки файла
     handleFileUpload(event) {
+      
       this.file = event.target.files[0];
     },
 
@@ -69,7 +70,7 @@ export default {
       }
 
       try {
-        await axios.post('/api/messages', formData, {
+        await this.$axios.post('/api/messages', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -85,7 +86,7 @@ export default {
     // Метод для получения текущего значения curNum
     async fetchCurNum() {
       try {
-        const response = await axios.get('/api/number');
+        const response = await this.$axios.get('/api/number');
         this.curNum = response.data.curNum; 
       } catch (error) {
         console.error('Error fetching curNum:', error);
@@ -94,7 +95,7 @@ export default {
 
     async incrementCurNum() {
       try {
-        const response = await axios.post('/api/number/increment');
+        const response = await this.$axios.post('/number/increment');
         this.curNum = response.data.curNum;
       } catch (error) {
         console.error('Error incrementing curNum:', error);
