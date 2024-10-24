@@ -15,22 +15,22 @@
 export default {
   data() {
     return {
-      messages: [],
-      currentPage: 1,
-      pageSize: 10
+      messages: [],  // Все загруженные сообщения
+      currentPage: 1,  // Текущая страница
+      pageSize: 10  // Количество сообщений на страницу
     };
   },
   methods: {
     async fetchMessages() {
       try {
-        const response = await this.$axios.get(`/api/messages/yourPseudonym?page=${this.currentPage}`);
-        this.messages = response.data.data;
+        const response = await this.$axios.get(`/messages/yourPseudonym?page=${this.currentPage}&pageSize=${this.pageSize}`);
+        this.messages = [...this.messages, ...response.data.data];
       } catch (error) {
         console.error('Error fetching messages:', error);
       }
     },
     loadMore() {
-      this.currentPage++;
+      //this.currentPage++;
       this.fetchMessages();
     },
     formatDate(date) {
@@ -38,7 +38,7 @@ export default {
     }
   },
   mounted() {
-    this.fetchMessages();
+    this.fetchMessages();  
   }
 };
 </script>

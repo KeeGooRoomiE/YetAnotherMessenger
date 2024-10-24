@@ -24,7 +24,7 @@
     <p v-if="messageSent">Message sent!</p>
 
     <!-- Новая кнопка Increment -->
-    <button @click="incrementCurNum">Increment: {{ curNum }}</button>
+<!--    <button @click="incrementCurNum">Increment: {{ curNum }}</button>-->
   </div>
 </template>
 
@@ -34,7 +34,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      receiverPseudonym: '',
+      receiverPseudonym: 'One',
       senderPseudonym: '',
       message: '',
       file: null,
@@ -56,7 +56,7 @@ export default {
       this.file = event.target.files[0];
     },
 
-    inject: ['$axios'],
+    // inject: ['$axios'],
 
     // Метод для отправки сообщений
     async sendMessage() {
@@ -70,7 +70,7 @@ export default {
       }
 
       try {
-        await this.$axios.post('/api/messages', formData, {
+        await this.$axios.post('/messages', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -84,28 +84,31 @@ export default {
     },
 
     // Метод для получения текущего значения curNum
-    async fetchCurNum() {
-      try {
-        const response = await this.$axios.get('/api/number');
-        this.curNum = response.data.curNum; 
-      } catch (error) {
-        console.error('Error fetching curNum:', error);
-      }
-    },
+    // async fetchCurNum() {
+    //   try {
+    //     const response = await this.$axios.get('/number');
+    //     this.curNum = response.data.curNum; 
+    //   } catch (error) {
+    //     console.error('Error fetching curNum:', error);
+    //   }
+    // },
 
-    async incrementCurNum() {
-      try {
-        const response = await this.$axios.post('/number/increment');
-        this.curNum = response.data.curNum;
-      } catch (error) {
-        console.error('Error incrementing curNum:', error);
-      }
-    }
+    // async incrementCurNum() {
+    //   try {
+    //     //this.fetchCurNum();
+    //     const response = await this.$axios.post('/number/increment');
+    //     this.curNum = response.data.curNum;
+    //     console.log(this.curNum);
+    //   } catch (error) {
+    //     console.error('Error incrementing curNum:', error);
+    //   }
+    // }
   },
 
   // Когда компонент монтируется, мы загружаем текущее значение curNum
   mounted() {
-    this.fetchCurNum();
+    this.receiverPseudonym = "yourPseudonym";
+    this.senderPseudonym = "yourPseudonym";
   }
 };
 </script>
